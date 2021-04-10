@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+    stages{
+        stage('SCM Checkout'){
+            steps{
+                git 'https://github.com/thyagaraja/devops-practical-challenge'
+            }
+        }
+        stage('Execute Ansible PB'){
+            steps{
+                ansiblePlaybook become: true, credentialsId: '79827e329-3456-7g673l-76589-e22242223', disableHostKeyChecking: true, installation: 'ansible', inventory: 'playbooks/inv.ini', playbook: 'playbooks/nginx.yml'
+            }
+        }
+    }
+}

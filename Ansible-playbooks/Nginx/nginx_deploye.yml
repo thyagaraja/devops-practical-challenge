@@ -1,0 +1,18 @@
+---
+- hosts: nginx
+  tasks:
+    - name: copy the nginx config file and restart nginx
+      copy:
+        src: /opt/Ansible-playbooks/nginx.conf
+        dest: /home/nginx/nginx.conf
+      become: yes
+    - name: copy the content of the web site
+      copy:
+        src: /opt/Ansible-playbooks/static-site
+        dest: /home/nginx/static-site
+      become: yes
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+      become: yes
